@@ -11,11 +11,12 @@ function AdminDash() {
   const [papers, setPapers] = useState([]); // State to store papers data
   const tests = useSelector((state) => state.cart.tests); // Get tests from Redux store
   const dispatch = useDispatch(); // Get dispatch function
+  const url='https://onine-exam.onrender.com';
 
   useEffect(() => {
     const fetchExamCount = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/exam-count');
+        const response = await fetch(`${url}/api/exam-count`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -32,7 +33,7 @@ function AdminDash() {
   useEffect(() => {
     const fetchExamCount1 = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/test-count');
+        const response = await fetch(`${url}/api/test-count`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -49,7 +50,7 @@ function AdminDash() {
   useEffect(() => {
     const fetchPaperDetails = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/Admintable');
+        const response = await fetch(`${url}/api/Admintable`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }

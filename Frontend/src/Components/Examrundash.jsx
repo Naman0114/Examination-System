@@ -15,12 +15,13 @@ function Examrundash( props ) {
   const location = useLocation();
   const { paperID, timeer,totalmark,papertitle } = location.state || {}; // Get paperID and timer from location state
   const num = paperID - 1;
+  const url='https://onine-exam.onrender.com';
 
   
   // Fetch questions for the given paperID
   const fetchquestion = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/studentgiveexamrun/${paperID}`);
+      const response = await axios.get(`${url}/api/studentgiveexamrun/${paperID}`);
       const questions = response.data.questionfind;
       setStorequestion(questions);
 

@@ -51,6 +51,7 @@ function Addtest() {
   const handleCourseUnitChange = (e) => setCourseUnit(e.target.value);
   const handleTimeLimitChange = (e) => setTimeLimit(e.target.value);
   const handleTotalMarksChange = (e) => setTotalMarks(e.target.value);
+  const url='https://onine-exam.onrender.com';
   const handleTotalQuestions = (e) => {
     const value = parseInt(e.target.value, 10);
     if (value >= 1 && value <= 10) {
@@ -109,7 +110,7 @@ function Addtest() {
 
   try {
     // Send the data to the backend using axios
-    const response = await axios.post("http://localhost:3000/api/ques", testData);
+    const response = await axios.post(`${url}/api/ques`, testData);
     console.log('Backend Response:', response.data);
 
     alert('Test submitted successfully! Check the console for details.');

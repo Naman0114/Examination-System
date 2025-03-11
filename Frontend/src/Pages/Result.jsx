@@ -21,6 +21,7 @@ function Result() {
   const totalMarksArray = Totalmarkss.map(item => item.totalmarks);
   const papertitless=paperTitle1[0] ||0;
   const paperidsss=paperids1[0] ||0;
+  const url='https://onine-exam.onrender.com';
   
   const totalMarks = totalMarksArray[0] || 0; // If no totalmarks available, fallback to 0
 
@@ -90,7 +91,7 @@ function Result() {
   
     try {
       // Send the results to the backend API
-      const response = await axios.post("http://localhost:3000/api/results", payload);
+      const response = await axios.post(`${url}/api/results`, payload);
       
       // Log the response from the server
       console.log("Response:", response.data.message);

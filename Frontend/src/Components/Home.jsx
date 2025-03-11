@@ -12,13 +12,14 @@ function Home() {
   // Get the tests that are enabled from the Redux store
   const enabledTests = useSelector((state) => state.cart.En_Dis);
    const tests = useSelector((state) => state.cart.tests); 
+   const url='https://onine-exam.onrender.com';
   const addcards = (index,time,Totalmarks,papername) => {
     navigate('/giveexam', { state: { paperID:index ,timeer:time,totalmark:Totalmarks,papertitle:papername} });
   };
     useEffect(() => {
        const fetchPaperDetails = async () => {
          try {
-           const response = await fetch('http://localhost:3000/api/Admintable');
+           const response = await fetch(`${url}/api/Admintable`);
            if (!response.ok) {
              throw new Error('Network response was not ok');
            }

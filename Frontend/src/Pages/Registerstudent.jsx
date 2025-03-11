@@ -17,6 +17,7 @@ function LoginStudent() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const url='https://onine-exam.onrender.com';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,7 +33,7 @@ function LoginStudent() {
   
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost:3000/api/homes', {
+      const response = await axios.post(`${url}/api/homes`, {
         enrollmentNumber: trimmedEnrollmentNumber,
         password: trimmedPassword,
       });

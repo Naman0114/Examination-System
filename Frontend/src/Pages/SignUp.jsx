@@ -10,13 +10,14 @@ const SignUp = () => {
   const [otp, setOtp] = useState("");
   const [otpSent, setOtpSent] = useState(false); // Track if OTP has been sent
   const navigate = useNavigate();
+  const url='https://onine-exam.onrender.com';
 
   const handleSendOtp = (e) => {
     e.preventDefault();
     console.log("Sending OTP to:", email);
 
     // Send OTP to the provided email
-    axios.post("http://localhost:3000/api/sendemail", { email })
+    axios.post(`${url}/api/sendemail`, { email })
       .then((response) => {
         console.log("OTP Sent Response:", response);
         setOtpSent(true); // Show OTP input field
@@ -29,13 +30,13 @@ const SignUp = () => {
     console.log("Verifying OTP:", { email, otp });
 
     // Verify the provided OTP
-    axios.post("http://localhost:3000/api/verify-otp", { email, otp })
+    axios.post(`${url}/api/verify-otp`, { email, otp })
       .then((response) => {
         console.log("OTP Verified Response:", response);
         
         // Automatically sign up the user after OTP verification
         console.log("Submitting Sign-Up:", { name, email, password });
-        return axios.post("http://localhost:3000/api/homes", { name, email, password });
+        return axios.post(`${url}/api/homes`, { name, email, password });
       })
       .then((result) => {
         console.log("Sign-Up Response:", result);

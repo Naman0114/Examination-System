@@ -7,12 +7,13 @@ const ResultPage = () => {
   const [studentData, setStudentData] = useState([]);
   const tests = useSelector((state) => state.cart.enrollmentnum); 
   const enroll=tests[0].enrollmentNumber;
+  const url='https://onine-exam.onrender.com';
 
   // Fetch data from the backend API
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/allresults");
+        const response = await axios.get(`${url}/api/allresults`);
         const filteredData = response.data.filter(student => student.enrollmentNumber == enroll);
         console.log(filteredData,'filter');
         

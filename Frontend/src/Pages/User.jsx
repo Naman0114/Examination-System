@@ -25,6 +25,7 @@ function User() {
   const [otpError, setOtpError] = useState("");
 
   const navigate = useNavigate();
+  const url='https://onine-exam.onrender.com';
 
   // Handle form field changes
   const handleChange = (e) => {
@@ -47,7 +48,7 @@ function User() {
     setError(""); // Clear errors
     console.log("Sending Email:", formData.email);
     axios
-  .post("http://localhost:3000/api/sendemail1", {
+  .post(`${url}/api/sendemail1`, {
     NAME: formData.fullName,
     AGE: formData.age,
     Email: formData.email,
@@ -92,14 +93,14 @@ function User() {
 
       // Simulate OTP verification
       axios
-        .post("http://localhost:3000/api/verify-otp", { email: formData.email, otp: otpString })
+        .post(`${url}/api/verify-otp`, { email: formData.email, otp: otpString })
         .then((response) => {
         // console.log("OTP Verified Response:", response);
         const enrollmentNumber = Math.floor(1000000000 + Math.random() * 9000000000).toString();
         
         // Automatically sign up the user after OTP verification
         console.log("Submitting Sign-Up:", {enrollmentNumber,NAME:formData.fullName, Email:formData.email,AGE:formData.age, GENDER:formData.gender, COURSE:formData.course, PASSWORD:formData.password });
-        axios.post("http://localhost:3000/api/store",{ enrollmentNumber,NAME:formData.fullName, Email:formData.email,AGE:formData.age, GENDER:formData.gender, COURSE:formData.course, PASSWORD:formData.password });
+        axios.post(`${url}/api/store`,{ enrollmentNumber,NAME:formData.fullName, Email:formData.email,AGE:formData.age, GENDER:formData.gender, COURSE:formData.course, PASSWORD:formData.password });
          })
         .then(() => {
           alert("OTP Verified! Registration Complete.");
