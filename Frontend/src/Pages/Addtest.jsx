@@ -51,7 +51,8 @@ function Addtest() {
   const handleCourseUnitChange = (e) => setCourseUnit(e.target.value);
   const handleTimeLimitChange = (e) => setTimeLimit(e.target.value);
   const handleTotalMarksChange = (e) => setTotalMarks(e.target.value);
-  const url='https://onine-exam.onrender.com';
+  // const url='https://onine-exam.onrender.com';
+  const url = process.env.REACT_APP_API_BASE_URL;
   const handleTotalQuestions = (e) => {
     const value = parseInt(e.target.value, 10);
     if (value >= 1 && value <= 10) {

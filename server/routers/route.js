@@ -9,6 +9,8 @@ const nodemailer = require("nodemailer");
 const paperModel=require("../model/AllQuestion")
 const bcrypt = require('bcryptjs');
 const Questions = require('../model/Quespaper');
+const LoggedInUser = require('../model/LoggedInUser');
+
 
 
 
@@ -29,13 +31,11 @@ router.get("/home", (req,res)=>{
 router.post("/results", async (req, res) => {
   const { enrollmentNumber, papertitless, paperidsss, totalMarks, grade, percentage } = req.body;
 
-  // Check if all the required fields are present
   if (!enrollmentNumber || !papertitless || !paperidsss || !totalMarks || !grade || !percentage) {
     return res.status(400).json({ error: "Missing required fields" });
   }
 
   try {
-    // Create a new result object and save it
     const newResult = new Resultmodel({
       enrollmentNumber,
       papertitless,
@@ -45,10 +45,7 @@ router.post("/results", async (req, res) => {
       percentage,
     });
 
-    // Save the result to the database
     await newResult.save();
-
-    // Send success response with the result data
     return res.status(201).json({ message: "Result created successfully", result: newResult });
   } catch (error) {
     console.error("Error creating result:", error);
@@ -98,6 +95,85 @@ router.get('/Admintable', async (req, res) => {
     res.status(500).send('Error fetching count');
   }
 });
+// router.get('/results', async (req, res) => {
+//   try {
+//     const count2 = await Resultmodel.countDocuments();
+//     const papers = await Resultmodel.find();
+//     res.json({ papers, examcount1: count2 });
+//   } catch (error) {
+//     res.status(500).send('Error fetching count');
+//   }
+// });
+router.get('/logineduser', async (req, res) => {
+  try {
+    const count3 = await User3.countDocuments(); // Get the count of documents
+    const papers3 = await User3.find(); // Find all the documents in User3 collection
+
+    // Send the response with data
+    res.json({ papers: papers3, examcount1: count3 });
+  } catch (error) {
+    // Log the actual error for debugging purposes
+    console.error('Error fetching data:', error);
+
+    // Send an appropriate error message
+    res.status(500).send('Error fetching count and papers');
+  }
+});
+router.post("/loginedusercurrent", async (req, res) => {
+  try {
+    const { enrollmentnumber, name, gender, age, course, password } = req.body;
+
+    if (!enrollmentnumber || !name || !gender || !age || !course || !password) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+
+    const newUser = new LoggedInUser({
+      enrollmentNumber: enrollmentnumber,
+      name: name,
+      gender: gender,
+      age: age,
+      course: course,
+      password: password,
+    });
+
+    // Save the new user in the database
+    const savedUser = await newUser.save();
+    return res.status(201).json({ message: "User saved successfully", data: savedUser });
+  } catch (error) {
+    console.error("Error saving user:", error);
+    return res.status(500).json({ error: "Failed to save user" });
+  }
+});
+router.get("/loginedusercurrent", async (req, res) => {
+  try {
+    // Fetch all users from the database
+    const users = await LoggedInUser.find();
+
+    if (users.length === 0) {
+      return res.status(404).json({ message: "No users found" });
+    }
+
+    return res.status(200).json({ message: "Users fetched successfully", users });
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    return res.status(500).json({ error: "Failed to fetch users" });
+  }
+});
+
+// DELETE all logged in users
+router.delete("/loginedusercurrent", async (req, res) => {
+  try {
+    const result = await LoggedInUser.deleteMany({});
+    return res.status(200).json({ message: "All logined users deleted", result });
+  } catch (error) {
+    console.error("Error deleting all users:", error);
+    return res.status(500).json({ error: "Failed to delete logined users" });
+  }
+});
+
+
+// ✅ ADD THIS: GET /api/results
+
 router.get('/studentgiveexamrun/:paperID', async (req, res) => {
   try {
     const { paperID } = req.params; // Get paperID from the request params
@@ -161,6 +237,37 @@ router.post("/ques", async (req, res) => {
     });
   }
 });
+
+// DELETE route to delete paper and associated questions
+// DELETE route: Delete paper by _id and also delete related questions using paperIDconst express = require('express');
+router.delete("/ques/:id", async (req, res) => {
+  const paperID = parseInt(req.params.id);
+  console.log("Deleting paper with paperID:", paperID);
+
+  try {
+    const deletedPaper = await paperModel.findOneAndDelete({ paperID: paperID });
+
+console.log(deletedPaper)
+    if (!deletedPaper) {
+      return res.status(404).json({ message: 'Paper not found' });
+    }
+
+    // delete from Questions
+    await Questions.deleteMany({ paperID: { $in: [paperID] } });
+
+    res.status(200).json({
+      message: 'Paper and associated questions deleted successfully',
+    });
+  } catch (error) {
+    console.error('Error deleting paper and questions:', error.message);
+    res.status(500).json({
+      message: 'Error deleting paper and questions',
+      error: error.message,
+    });
+  }
+});
+
+
 
 router.get('/getEnrollmentNumber', async (req, res) => {
   try {
@@ -411,6 +518,14 @@ router.post("/store", async (req, res) => {
       console.error("Error sending OTP email:", error);
       res.status(500).json({ error: "Failed to send OTP email." });
     }
+});
+router.get('/test2', async (req, res) => {
+  try {
+    const students = await User3.find(); // Find all students from the database
+    res.status(200).json({ studentss: students }); // Send the students in the response
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching students' });
+  }
 });
 
 router.post('/homes', async (req, res) => {

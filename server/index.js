@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const connectedDB = require("./config/db")
 const users = require("./routers/route")
-const add = require("./routers/route")
+
 
 
 const app = express();

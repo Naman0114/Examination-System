@@ -8,10 +8,10 @@ function FrontPage() {
     <div>
         <div className='navbarheading bg-primary p-5'>
             <div ><h4>Test Your Skill</h4></div>
-            <div class="navbarheading">
+            {/* <div class="navbarheading">
                 <div><h4>Register</h4></div>
                 <div><h4 className='cont'> Contact</h4></div>
-            </div>
+            </div> */}
         </div>
         <div className='bg-primary p-5'>
             <h1>Online Examination System</h1>

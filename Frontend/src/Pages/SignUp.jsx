@@ -10,7 +10,7 @@ const SignUp = () => {
   const [otp, setOtp] = useState("");
   const [otpSent, setOtpSent] = useState(false); // Track if OTP has been sent
   const navigate = useNavigate();
-  const url='https://onine-exam.onrender.com';
+  const url=process.env.REACT_APP_API_BASE_URL;
 
   const handleSendOtp = (e) => {
     e.preventDefault();

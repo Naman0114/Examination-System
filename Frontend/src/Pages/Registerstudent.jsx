@@ -1,53 +1,75 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { addtempenrollmentnumber } from '../Redux/CartSlice';
 
-
-
 function LoginStudent() {
   const navigate = useNavigate();
-  const [enrollmentNumber, setEnrollmentNumber] = useState('');
-  const [userDetail, setuserDetail] = useState([]);
-  const name2 = useSelector((state) => state.cart);
   const dispatch = useDispatch();
-  
+  const name2 = useSelector((state) => state.cart);
 
+  const [enrollmentNumber, setEnrollmentNumber] = useState('');
   const [password, setPassword] = useState('');
+  const [userDetail, setuserDetail] = useState([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const url='https://onine-exam.onrender.com';
+
+  const url = process.env.REACT_APP_API_BASE_URL;
+
+  // ✅ Log updated userDetail when it changes
+  useEffect(() => {
+    if (userDetail && userDetail.enrollmentNumber) {
+      console.log('✅ userDetail updated:', userDetail);
+    }
+  }, [userDetail]);
+  useEffect(() => {
+    const deleteLoggedInUsers = async () => {
+      try {
+        // Call API to delete all logged-in users
+        await axios.delete(`${url}/api/loginedusercurrent`);
+        console.log("All logged-in users have been deleted.");
+      } catch (error) {
+        console.error("Error deleting logged-in users:", error);
+      }
+    };
+
+    deleteLoggedInUsers();  // Call to delete users on component mount
+  }, []); // Em
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    // Trim the input fields to avoid issues with leading/trailing spaces
+
     const trimmedEnrollmentNumber = enrollmentNumber.trim();
     const trimmedPassword = password.trim();
-  
+
     if (!trimmedEnrollmentNumber || !trimmedPassword) {
       setError('Both fields are required.');
       return;
     }
-  
+
     setLoading(true);
+
     try {
       const response = await axios.post(`${url}/api/homes`, {
         enrollmentNumber: trimmedEnrollmentNumber,
         password: trimmedPassword,
       });
-  
+
       if (response.data.success) {
-        setuserDetail(response.data.user);
-   
-        navigate('/userloginsucc', { state: { users: response.data.user } });
+        const user = response.data.user;
+
+        setuserDetail(user); // ✅ updates the user state
+        // dispatch(addtempenrollmentnumber(user.enrollmentNumber)); // ✅ store in Redux
+        navigate('/userloginsucc', { state: { users: user } }); // ✅ navigate with user
+
+        console.log('✅ Logged in user:', user);
       } else {
         setError(response.data.message || 'Invalid enrollment number or password!');
       }
     } catch (error) {
       console.error('Error during login:', error);
-  
+
       if (error.response) {
         if (error.response.status === 401) {
           setError('Incorrect enrollment number or password.');
@@ -61,8 +83,7 @@ function LoginStudent() {
       setLoading(false);
     }
   };
-  
-  
+
   return (
     <div className="login-container">
       <h1>Login</h1>
@@ -71,12 +92,11 @@ function LoginStudent() {
           <label htmlFor="enrollmentNumber">Enrollment Number:</label>
           <input
             id="enrollmentNumber"
-            type="text" // Use text instead of number to handle leading zeros
+            type="text"
             name="enrollmentNumber"
             value={enrollmentNumber}
             onChange={(e) => setEnrollmentNumber(e.target.value)}
             required
-            // placeholder="Enter your enrollment number"
           />
         </div>
 
@@ -89,7 +109,6 @@ function LoginStudent() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            // placeholder="Enter your password"
           />
         </div>
 
@@ -98,12 +117,10 @@ function LoginStudent() {
         </button>
       </form>
 
-      {/* Display error message if login fails */}
       {error && <div className="error-message">{error}</div>}
 
       <p className="create-account">
-        Don't have an account?{' '}
-        <Link to={'/Users'}>Create New Account</Link>
+        Don't have an account? <Link to="/Users">Create New Account</Link>
       </p>
     </div>
   );

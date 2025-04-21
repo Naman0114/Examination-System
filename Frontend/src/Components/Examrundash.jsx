@@ -15,7 +15,7 @@ function Examrundash( props ) {
   const location = useLocation();
   const { paperID, timeer,totalmark,papertitle } = location.state || {}; // Get paperID and timer from location state
   const num = paperID - 1;
-  const url='https://onine-exam.onrender.com';
+  const url = process.env.REACT_APP_API_BASE_URL;
 
   
   // Fetch questions for the given paperID

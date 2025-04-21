@@ -21,6 +21,8 @@ import OTPverification from './Components/OTPverification';
 import TRYCODE from './Pages/TRYCODE';
 import SignUp from './Pages/SignUp';
 import ResultPage from './Pages/ResultPage';
+import CustomAlert from './Pages/CustomAlert';
+import AdminSeeResult from './Pages/AdminSeeResult';
 // import MyForm from './Pages/M';
 function App( props) {
   // console.log(name,'appsss');
@@ -53,6 +55,8 @@ function App( props) {
               <Route path='/user' element={<SignUp/>}/>
               <Route path='/try' element={<TRYCODE/>}/>
               <Route path="/allresult" element={<ResultPage />} />
+              <Route path="/alert" element={<CustomAlert />} />
+              <Route path="/StudentResult/:enrollmentNumber" element={<AdminSeeResult />} />
             
           
             </Routes>

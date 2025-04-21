@@ -1,132 +1,66 @@
-// import React from 'react'
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-function Test() {
-  const slidesData = [
-    {
-      title: "1",
-      content: "Choose your favorite Web language:",
-      option1: "Html",
-      option2: "CSS",
-      option3: "Javascripts",
-      option4: "Javascripts",
-    },
-    {
-      title: "2",
-      content: "Choose your favorite Web Player:",
-      option1: "Virat",
-      option2: "Rohit",
-      option3: "CR7",
-      option4: "CR7",
-    },
-    {
-      title: "3",
-      content: "Choose your favorite Web Game:",
-      option1: "Cricket",
-      option2: "Badminton",
-      option3: "Chess",
-      option4: "Chess",
-    },
-    {
-      title: "4",
-      content: "Choose your favorite city:",
-      option1: "Mumbai",
-      option2: "Banglore",
-      option3: "Delhi",
-      option4: "Delhi",
-    },
-    {
-      title: "5",
-      content: "Choose your favorite country:",
-      option1: "Mumbai",
-      option2: "Banglore",
-      option3: "zafar",
-      option4: "zafar",
-    },
+const Test = () => {
+  const data = [
+    { id: 1, paperId: 'P001', name: 'Math' },
+    { id: 2, paperId: 'P001', name: 'Math' },
+    { id: 3, paperId: 'P002', name: 'Science' },
+    { id: 4, paperId: 'P003', name: 'English' },
+    { id: 5, paperId: 'P002', name: 'Science' },
   ];
 
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [disabledPaperIds, setDisabledPaperIds] = useState({});
 
-  // Navigate to the previous slide
-  const goToPreviousSlide = () => {
-    setCurrentSlide((prev) => (prev > 0 ? prev - 1 : slidesData.length - 1));
+  const handleStart = (paperId) => {
+    setDisabledPaperIds((prev) => ({
+      ...prev,
+      [paperId]: true,
+    }));
   };
 
-  // Navigate to the next slide
-  const goToNextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slidesData.length);
-  };
-
-  // Log the selected option for the current slide
-  const logCurrentSelection = () => {
-    const selectedOption = document.querySelector(
-      `input[name="slide${currentSlide}"]:checked`
-    );
-    console.log(
-      `Slide ${slidesData[currentSlide].title}: ${
-        selectedOption ? selectedOption.value : "No selection"
-      }`
-    );
-  };
   return (
     <div>
-        <h6>{slidesData[currentSlide].content}</h6>
-      <div>
-      
-        <input
-          type="radio"
-          id={`option1_${currentSlide}`}
-          name={`slide${currentSlide}`}
-          value={slidesData[currentSlide].option1}
-        />
-        <label htmlFor={`option1_${currentSlide}`}>
-          {slidesData[currentSlide].option1}
-        </label>
-
-        <input
-          type="radio"
-          id={`option2_${currentSlide}`}
-          name={`slide${currentSlide}`}
-          value={slidesData[currentSlide].option2}
-        />
-        <label htmlFor={`option2_${currentSlide}`}>
-          {slidesData[currentSlide].option2}
-        </label>
-
-        <input
-          type="radio"
-          id={`option3_${currentSlide}`}
-          name={`slide${currentSlide}`}
-          value={slidesData[currentSlide].option3}
-        />
-        <label htmlFor={`option3_${currentSlide}`}>
-          {slidesData[currentSlide].option3}
-        </label>
-
-        <input
-          type="radio"
-          id={`option4_${currentSlide}`}
-          name={`slide${currentSlide}`}
-          value={slidesData[currentSlide].option4}
-        />
-        <label htmlFor={`option4_${currentSlide}`}>
-          {slidesData[currentSlide].option4}
-        </label>
-      </div>
-
-      <div className="slide-navigation">
-        <button onClick={goToPreviousSlide} className="nav-button">
-          Previous
-        </button>
-        <button onClick={goToNextSlide} className="nav-button">
-          Next
-        </button>
-        <button onClick={logCurrentSelection} className="nav-button">
-          Log Selection
-        </button>
-      </div>
+      <h2>Paper List</h2>
+      <table border="1" cellPadding="10">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Paper ID</th>
+            <th>Paper Name</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((paper) => {
+            const isDisabled = !!disabledPaperIds[paper.paperId];
+            return (
+              <tr key={paper.id}>
+                <td>{paper.id}</td>
+                <td>{paper.paperId}</td>
+                <td>{paper.name}</td>
+                <td>
+                  <button
+                    onClick={() => handleStart(paper.paperId)}
+                    disabled={isDisabled}
+                    style={{
+                      backgroundColor: isDisabled ? '#ccc' : '#4CAF50',
+                      color: isDisabled ? '#666' : '#fff',
+                      cursor: isDisabled ? 'not-allowed' : 'pointer',
+                      padding: '8px 12px',
+                      border: 'none',
+                      borderRadius: '4px',
+                    }}
+                  >
+                    {isDisabled ? 'Started' : 'Start'}
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     </div>
-  )
-}
+  );
+};
 
-export default Test
+export default Test;

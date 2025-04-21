@@ -9,6 +9,7 @@ const paperSchema = new Schema({
   },
   paperID: {
     type: Number,
+    unique: true, // critical!
   },
  
   course: {

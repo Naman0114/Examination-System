@@ -23,17 +23,17 @@ function Dashboard() {
                     <p className="text-light">Your Ultimate Destination For Online Assessment</p>
                   </div>
                 </Col>
-                <Col sm>
+                {/* <Col sm>
                   <div className="mt-4">
                     <Button className="w-100 rounded-pill">Start Exam</Button>
                     <br />
                   </div>
-                </Col>
+                </Col> */}
                 <Col sm>
                   <div className="mt-4">
                     {/* On button click, navigate to the result page */}
                     <Button
-                      className="w-100 rounded-pill"
+                      className="w-50 rounded-pill"
                       onClick={handleViewResult}  // Trigger navigation on click
                     >
                       View Result

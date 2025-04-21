@@ -25,7 +25,7 @@ function User() {
   const [otpError, setOtpError] = useState("");
 
   const navigate = useNavigate();
-  const url='https://onine-exam.onrender.com';
+  const url=process.env.REACT_APP_API_BASE_URL;
 
   // Handle form field changes
   const handleChange = (e) => {

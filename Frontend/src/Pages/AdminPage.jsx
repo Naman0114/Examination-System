@@ -19,6 +19,7 @@ import { GiNotebook } from "react-icons/gi";
 import { FaFileWord } from "react-icons/fa";
 import Course from './Course';
 import Addtest from './Addtest';
+import ManageStudent from './ManageStudent';
 
 function AdminPage(props) {
     const location = useLocation();
@@ -72,6 +73,11 @@ function AdminPage(props) {
             return { ...previousState, user: "addtest" };
         });
     };
+    const managestudent = () => {
+        setUser(previousState => {
+            return { ...previousState, user: "managestudent" };
+        });
+    };
 
     console.log(user.user);
 
@@ -89,21 +95,7 @@ function AdminPage(props) {
                     
                         <div className='d-flex profile'>
                             <div>
-                                <form className='rounded-pill profile2' autocomplete="off">
-                                    <div className='d-flex searchbox'>
-                                        <div>
-                                            <input
-                                                type="text"
-                                                placeholder="Searching"
-                                                className='w-100 '
-                                                required
-                                            />
-                                        </div>
-                                        <div className='mt-2 me-2'>
-                                            <FaSearch />
-                                        </div>
-                                    </div>
-                                </form>
+                                
                             </div>
                             <div>
                                 <Image src={profile} className='rounded-circle profilestudent' />
@@ -137,15 +129,18 @@ function AdminPage(props) {
                                         </Link>
                                         <hr />
                                         <h5 className='text-start'>Action</h5>
-                                        <Link onClick={course} className='w-100'>
+                                        {/* <Link onClick={course} className='w-100'>
                                             <SiCoursera className='mt-1 me-2' /> Course
-                                        </Link>
+                                        </Link> */}
                                         <Link onClick={addtest} className='w-100'>
                                             <GiNotebook className='mt-1 me-2' /> Add Test
                                         </Link>
-                                        <Link to="/products" className='w-100'>
-                                            <FaFileWord className='mt-1 me-2' /> View Result
+                                        <Link onClick={managestudent} className='w-100'>
+                                            <FaFileWord className='mt-1 me-2' /> Manage Student
                                         </Link>
+                                        {/* <Link to="/products" className='w-100'>
+                                            <FaFileWord className='mt-1 me-2' /> View Result
+                                        </Link> */}
                                     </ul>
                                 </div>
                             </div>
@@ -157,8 +152,9 @@ function AdminPage(props) {
                         user.user === 'dashbord' ? <AdminDash /> :
                             user.user === 'course' ? <Course /> :
                                 user.user === 'login' ? <AdminDash /> :
-                                    user.user === 'addtest' ? <Addtest /> : <></>
-                    }
+                                    user.user === 'managestudent' ? <ManageStudent /> :
+                                        user.user === 'addtest' ? <Addtest /> : <></>
+                        }
                 </div>
             </div>
         </div>
