@@ -17,7 +17,7 @@ function ManageStudent() {
         const response = await fetch(`${url}/api/test2`);
         const data = await response.json();
 
-        console.log('Fetched data:', data);
+        console.log('Fetched data1:', data);
 
         if (response.ok) {
           // Adjust this according to your actual API response
