@@ -1,30 +1,26 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './App.css';
-import React, { Component, useState } from 'react';
-import Header from './Components/Header';
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import FrontPage from './Pages/FrontPage';
-import Admin from './Pages/Admin';
-import User from './Pages/User';
-import UserLogin from './Components/UserLogin';
-import Mainpage from './Pages/Mainpage';
-import Home from './Components/Home';
-import Examsques from './Pages/Examsques';
-import AdminPage from './Pages/AdminPage';
-import QuesBank from './Components/QuesBank';
-import { Col, Row } from 'react-bootstrap';
 import Examrundash from './Components/Examrundash';
-import Test from './Components/Test';
-import Result from './Pages/Result';
-import Registerstudent from './Pages/Registerstudent';
 import OTPverification from './Components/OTPverification';
-import TRYCODE from './Pages/TRYCODE';
-import SignUp from './Pages/SignUp';
-import ResultPage from './Pages/ResultPage';
-import CustomAlert from './Pages/CustomAlert';
+import QuesBank from './Components/QuesBank';
+import Test from './Components/Test';
+import UserLogin from './Components/UserLogin';
+import Admin from './Pages/Admin';
+import AdminPage from './Pages/AdminPage';
 import AdminSeeResult from './Pages/AdminSeeResult';
 import AdminSignup from './Pages/AdminSignup';
+import CustomAlert from './Pages/CustomAlert';
 import ForgotPassword from './Pages/ForgotPassword';
+import FrontPage from './Pages/FrontPage';
+import Mainpage from './Pages/Mainpage';
+import Registerstudent from './Pages/Registerstudent';
+import Result from './Pages/Result';
+import ResultPage from './Pages/ResultPage';
+import SignUp from './Pages/SignUp';
+import TRYCODE from './Pages/TRYCODE';
+import User from './Pages/User';
+import Web3Provider from "./contexts/web3Provider";
 // import MyForm from './Pages/M';
 function App( props) {
   // console.log(name,'appsss');
@@ -32,6 +28,7 @@ function App( props) {
 
   
   return (
+    <Web3Provider>
     <div className="App">
         <BrowserRouter>
             {/* <Row>
@@ -66,6 +63,8 @@ function App( props) {
             </Routes>
         </BrowserRouter>
     </div>
+    </Web3Provider>
+
   );
 }
 

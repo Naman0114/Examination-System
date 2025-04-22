@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table';
 
@@ -7,7 +7,7 @@ function AdminDash() {
   const [examCount1, setExamCount1] = useState(0);
   const [papers, setPapers] = useState([]);
   const url = process.env.REACT_APP_API_BASE_URL;
-  console.log(url)
+  
 
   // Fetching the count and papers on component mount
   useEffect(() => {
