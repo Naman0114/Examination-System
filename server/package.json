@@ -11,17 +11,22 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@pinata/sdk": "^2.1.0",
     "axios": "^1.8.4",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "bootstrap": "^5.3.5",
+    "concurrently": "^9.1.2",
     "cors": "^2.8.5",
+    "crypto-js": "^4.2.0",
+    "dotenv": "^16.5.0",
     "ethers": "^6.13.5",
     "express": "^4.21.2",
     "mongoose": "^8.8.4",
     "nodemailer": "^6.9.16",
     "nodemon": "^3.1.9",
     "react-bootstrap": "^2.10.9",
-    "react-redux": "^9.2.0"
+    "react-redux": "^9.2.0",
+    "web3": "^4.16.0"
   }
 }
