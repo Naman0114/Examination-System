@@ -26,7 +26,7 @@ app.use('/api',authRouter);
 app.use('/api',uploadFileRouter);
 app.use('/api',encryptRouter);
 
-const sendMail=require('./controller/sendMail');
+const sendMail=require('./Controller/sendMail');
 
 app.get("/sendemail",sendMail)
 
