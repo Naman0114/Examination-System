@@ -1,5 +1,5 @@
 const express=require('express');
-const { uploadFile } = require('../controller/uploadController');
+const { uploadFile } = require('../Controller/uploadController');
 
 const uploadFileRouter=express.Router();
 

@@ -1,5 +1,5 @@
 const express=require('express');
-const { uploadPaper } = require('../controller/encrptionController');
+const { uploadPaper } = require('../Controller/encrptionController');
 
 
 const encryptRouter=express.Router();
