@@ -23,6 +23,9 @@ enrollmentNumber:{
   PASSWORD: {
     type: String,
   },
+  Email: {
+    type: String,
+  },
  
   createdAt: {
     type: Date,

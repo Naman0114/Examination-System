@@ -1,81 +1,88 @@
-import React, { useState } from 'react'
-import { Button } from 'react-bootstrap'
-import { Link, useNavigate } from 'react-router-dom'
-import '../css/style2.css'
-import { addmin } from '../Redux/CartSlice';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import '../css/style2.css';
+import axios from 'axios';
 
 function Admin() {
-  const nevigate = useNavigate();
-  const dispatch = useDispatch(); // Get dispatch function
-  
-  const [showSignUp, setShowSignUp] = useState(false);
+  const navigate = useNavigate();
+  const url = process.env.REACT_APP_API_BASE_URL;
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const handleToggleForm = () => {
-    setShowSignUp(!showSignUp);
-  };
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (showSignUp && password !== confirmPassword) {
-      alert("Passwords don't match!");
+
+    if (!email.trim() || !password.trim()) {
+      setError('Both fields are required.');
       return;
     }
-    if (email==="zafar@gmail.com" && password==="11") {
-      console.log("yes");
-      alert(`Form submitted! Email: ${email}`);
-      nevigate('/Adminpage');
-      
-      
-    }
-    dispatch(addmin([email,password]));
-    console.log(email,'memail');
-    console.log(password,'memail');
-    
 
+    setError('');
+    setLoading(true);
+
+    try {
+      const response = await axios.post(`${url}/api/admin-login`, {
+        email: email.trim(),
+        password: password.trim(),
+      });
+
+      if (response.data.success) {
+        const admin = response.data.user;
+        console.log('✅ Admin logged in:', admin);
+
+        navigate('/Adminpage', { state: { admin } });
+      } else {
+        setError(response.data.message || 'Invalid credentials.');
+      }
+    } catch (err) {
+      console.error('Login error:', err);
+      setError(err.response?.data?.message || 'An error occurred.');
+    } finally {
+      setLoading(false);
+    }
   };
+
   return (
-    <div>
-      <div className="app-container">
-        <div className="form-container">
-          <h2>{showSignUp ? 'Sign Up' : 'Sign In'}</h2>
-          <form onSubmit={handleSubmit} autoComplete='off'>
+    <div className="admin-login-bg"> {/* ✅ Background wrapper */}
+      <div className="login-container transparent-box"> {/* ✅ Transparent box */}
+        <h2>Admin Login</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label>Email ID:</label>
             <input
               type="email"
-              placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
+          </div>
+
+          <div className="form-group">
+            <label>Password:</label>
             <input
               type="password"
-              placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            {showSignUp && (
-              <input
-                type="password"
-                placeholder="Confirm Password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-              />
-            )}
-            <button type="submit" className="submit-btn">
-              {showSignUp ? 'Sign Up' : 'Sign In'}
-            </button>
-          </form>
-          <p onClick={handleToggleForm} className="toggle-form">
-            {showSignUp ? 'Already have an account? Sign In' : "Don't have an account? Sign Up"}
-          </p>
-        </div>
+          </div>
+
+          <button type="submit" disabled={loading}>
+            {loading ? 'Logging in...' : 'Login'}
+          </button>
+        </form>
+
+        {error && <div className="error-message">{error}</div>}
+
+        <p className="create-account">
+          Don't have an account? <Link to="/AdminSignup">Create New Account</Link>
+        </p>
       </div>
     </div>
-  )
+  );
 }
 
-export default Admin
+export default Admin;

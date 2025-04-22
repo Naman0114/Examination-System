@@ -1,33 +1,36 @@
 import React from 'react'
 import '../css/style.css'
 import { Link } from 'react-router-dom'
-import { Button } from 'react-bootstrap'
-// import '../javascript/OTP'
+import { Button, Container } from 'react-bootstrap'
+
 function FrontPage() {
   return (
-    <div>
-        <div className='navbarheading bg-primary p-5'>
-            <div ><h4>Test Your Skill</h4></div>
-            {/* <div class="navbarheading">
-                <div><h4>Register</h4></div>
-                <div><h4 className='cont'> Contact</h4></div>
-            </div> */}
+    <div className='full-page'>
+
+      {/* Navbar */}
+      <div className='navbarheading bg-primary p-4 text-white text-center'>
+        <h4>Test Your Skill</h4>
+      </div>
+
+      {/* Heading */}
+      <div className='bg-primary p-5 text-center text-white'>
+        <h1>Online Examination System</h1>
+      </div>
+
+      {/* Main Section */}
+      <section className='image-section'>
+        <div className='overlay text-center'>
+          <Container className="button-container">
+            <Button className='custom-btn mb-4' as={Link} to='/Admin'>
+              <h4 className='mb-0'>Admin</h4>
+            </Button>
+            <Button className='custom-btn' as={Link} to='/Register'>
+              <h4 className='mb-0'>User</h4>
+            </Button>
+          </Container>
         </div>
-        <div className='bg-primary p-5'>
-            <h1>Online Examination System</h1>
-        </div>
-        <section className='p-5'>
-            <div>
-                <div>
-                    <Button className='w-50'><Link to='/Admin'><h4>Admin</h4></Link></Button>
-                </div>
-                <br />
-                <div>
-                    <Button className='w-50'><Link to='/Register'><h4>User</h4></Link></Button>
-                    
-                </div>
-            </div>
-        </section>
+      </section>
+      
     </div>
   )
 }

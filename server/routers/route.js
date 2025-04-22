@@ -10,7 +10,7 @@ const paperModel=require("../model/AllQuestion")
 const bcrypt = require('bcryptjs');
 const Questions = require('../model/Quespaper');
 const LoggedInUser = require('../model/LoggedInUser');
-
+const Admin = require('../model/Admin');
 
 
 
@@ -18,16 +18,79 @@ router.get("/home", (req,res)=>{
     res.send("This is the homepage request")
 })
 
-// router.post("/home", async (req, res) => {
-     
-//     const {enrollmentNumber,name,Age,Email,Gender,Course, password} = req.body;
-// //   res.send("This is the homepage request2",req.body)
-//     const newUser = new User3({enrollmentNumber,name,Age,Email,Gender,Course, password});
-//     await newUser.save();
-//     res.status(201).json({ message: 'User registered successfully!', user: {enrollmentNumber, name,Age,Email,Gender,Course, password } });
-    
-    
-// });
+
+router.post('/admins', async (req, res) => {
+  const { NAME, Email, GENDER, PASSWORD } = req.body;
+
+  try {
+    const existing = await Admin.findOne({ email: Email });
+    if (existing) {
+      return res.status(400).json({ message: 'Admin already exists' });
+    }
+
+    const newAdmin = new Admin({
+      fullName: NAME,
+      email: Email,
+      gender: GENDER,
+      password: PASSWORD, // You can add hashing later with bcrypt
+    });
+
+    await newAdmin.save();
+    res.status(201).json({ message: 'Admin registered successfully' });
+  } catch (err) {
+    console.error('Error saving admin:', err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
+// Admin Login Route
+router.post('/admin-login', async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const admin = await Admin.findOne({ email });
+
+    if (!admin || admin.password !== password) {
+      return res.status(401).json({ success: false, message: 'Invalid email or password' });
+    }
+
+    res.status(200).json({ success: true, user: admin });
+  } catch (error) {
+    console.error('Login error:', error);
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+});
+
+// Get admin details by email
+// Corrected GET route to return all admins
+// ✅ This route fetches ALL admins
+router.get('/admins', async (req, res) => {
+  try {
+    const admins = await Admin.find();
+    res.status(200).json({ success: true, admins });
+  } catch (err) {
+    console.error('Error fetching admins:', err);
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+});
+
+router.post("/resetpass", async (req, res) => {
+  const { enrollmentNumber, email, newPassword } = req.body;
+  const user = await User3.findOne({ enrollmentNumber });
+  console.log(user);
+  
+  if (!user) {
+    return res.status(404).json({ success: false, message: "Admin not found" });
+  }
+
+  user.PASSWORD = newPassword; // Remember to hash in production
+  await user.save();
+
+  res.json({ success: true, message: "Password reset successful" });
+});
+
+
 router.post("/results", async (req, res) => {
   const { enrollmentNumber, papertitless, paperidsss, totalMarks, grade, percentage } = req.body;
 
@@ -466,6 +529,45 @@ router.post("/sendemail1", async (req, res) => {
 
   // Validate all required fields
   if (!Email || !NAME || !AGE || !GENDER || !COURSE || !PASSWORD) {
+    return res.status(400).json({ error: "All fields are required." });
+  }
+
+  // Generate OTP
+  const otp = Math.floor(1000 + Math.random() * 9000).toString();
+  const expiry = Date.now() + 5 * 60 * 1000; // OTP valid for 5 minutes
+
+  // Save OTP and expiry (assuming you have an in-memory object or database)
+  otps[Email] = { otp, expiry };
+
+  try {
+    // Send OTP via email
+    await transporter.sendMail({
+      from: `"Your App" <your_email@gmail.com>`,
+      to: Email,
+      subject: "Your OTP Code",
+      text: `Hello ${NAME},\n\nYour OTP is ${otp}. It is valid for 5 minutes.\n\nThank you for registering!`,
+    });
+
+    res.status(200).json({ message: "OTP sent successfully!" });
+  } catch (error) {
+    console.error("Error sending OTP email:", error);
+    res.status(500).json({ error: "Failed to send OTP email." });
+  }
+});
+
+
+router.post("/sendemail12", async (req, res) => {
+  const { Email, NAME, GENDER, PASSWORD } = req.body;
+
+  // Log all received fields
+  // console.log("Received Enrollment Number:", enrollmentNumber);
+  console.log("Received Name:", NAME);
+  console.log("Received Email:", Email);
+  console.log("Received Gender:", GENDER);
+  console.log("Received Password:", PASSWORD);
+
+  // Validate all required fields
+  if (!Email || !NAME || !GENDER  || !PASSWORD) {
     return res.status(400).json({ error: "All fields are required." });
   }
 

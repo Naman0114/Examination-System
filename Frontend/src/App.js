@@ -23,6 +23,8 @@ import SignUp from './Pages/SignUp';
 import ResultPage from './Pages/ResultPage';
 import CustomAlert from './Pages/CustomAlert';
 import AdminSeeResult from './Pages/AdminSeeResult';
+import AdminSignup from './Pages/AdminSignup';
+import ForgotPassword from './Pages/ForgotPassword';
 // import MyForm from './Pages/M';
 function App( props) {
   // console.log(name,'appsss');
@@ -57,6 +59,8 @@ function App( props) {
               <Route path="/allresult" element={<ResultPage />} />
               <Route path="/alert" element={<CustomAlert />} />
               <Route path="/StudentResult/:enrollmentNumber" element={<AdminSeeResult />} />
+              <Route path="/AdminSignup" element={<AdminSignup />} />
+              <Route path="/forgetpass" element={<ForgotPassword />} />
             
           
             </Routes>
