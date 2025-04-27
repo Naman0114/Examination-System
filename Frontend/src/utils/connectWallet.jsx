@@ -50,7 +50,7 @@ export const connectWallet = async () => {
     console.log("Backend Response:", res.data);
 
 
-    const contractAddress = "0x2E6562C16F15f6C1e8E8eFD3D9A1c352FDaB2f62";
+    const contractAddress = "0xFFB01dCFC77B40fAeCBb541DCA7BcDB0944d1244";
     const contractInstance = new ethers.Contract(contractAddress, contractAbi, signer);
 
 

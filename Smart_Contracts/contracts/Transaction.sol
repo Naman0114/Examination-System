@@ -43,4 +43,24 @@ contract HashStorage {
     function getAllPapers(address user) public view returns (Paper[] memory) {
         return userPapers[user];
     }
+
+
+// --- Result Hash Section ---
+    mapping(address => bytes32[]) private userResultHashes;
+
+    event ResultHashStored(address indexed user, bytes32 resultHash);
+
+    // Store a result hash (not related to any paper)
+    function storeResultHash(bytes32 _resultHash) public {
+        require(_resultHash != bytes32(0), "Result hash cannot be empty");
+
+        userResultHashes[msg.sender].push(_resultHash);
+
+        emit ResultHashStored(msg.sender, _resultHash);
+    }
+
+    // Get all result hashes
+    function getAllResultHashes(address user) public view returns (bytes32[] memory) {
+        return userResultHashes[user];
+    }
 }

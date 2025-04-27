@@ -1,20 +1,23 @@
-import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import { Table, Container, Button } from "react-bootstrap";
+import React from "react";
+import { Button, Container, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 import { resultss } from "../Redux/CartSlice";
-import { useNavigate } from 'react-router-dom';
+import { useWeb3context } from "../contexts/useWeb3Context";
+import { connectWallet } from "../utils/connectWallet";
 
 import axios from "axios";
 
 function Result() {
+  const url = process.env.REACT_APP_API_BASE_URL;
+  const { updateWeb3State } = useWeb3context();
   const navigate = useNavigate();
   const location = useLocation();
   const { resultsData } = location.state || { resultsData: [] };
   const tests = useSelector((state) => state.cart.enrollmentnum);
   const enroll = tests[0].enrollmentNumber;
   console.log(enroll);
-  
+
 
   const totalQuestions = resultsData.length;
   const totalMarksArray = resultsData.filter(item => item.totalmarks !== undefined).map(item => item.totalmarks);
@@ -61,8 +64,36 @@ function Result() {
     };
 
     try {
+
       await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/results`, payload);
-      alert('Succefullt Result Uploaded')
+      alert('Succefullt Result Uploaded');
+
+
+      // calling to metamask interaction
+      const { contractInstance, selectedAccount } = await connectWallet();
+      updateWeb3State({ contractInstance, selectedAccount });
+
+      const res = await axios.post(url + "/api/uploadFile");
+      console.log(res.data);
+
+      const result = await axios.post(url + "/api/uploadPaper", { testData });
+      console.log(result.data.ipfsHash);
+      console.log(testData.title);
+
+      await storeEncryptedIPFSHash(result.data.ipfsHash);
+
+
+      const storeEncryptedIPFSHash = async (encryptedHash) => {
+
+        const { contractInstance, selectedAccount } = await connectWallet();
+        updateWeb3State({ contractInstance, selectedAccount });
+
+        const tx = await contractInstance.storeResultHash(encryptedHash);
+
+        const receipt = await tx.wait();
+        console.log(receipt);
+      }
+
       navigate('/userloginsucc')
     } catch (error) {
       console.error("Error submitting results:", error.response ? error.response.data : error.message);

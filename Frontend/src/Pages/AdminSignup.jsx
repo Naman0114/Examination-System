@@ -1,10 +1,8 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import '../css/style2.css';
-import '../javascript/ja';
+
 
 function AdminSignup() {
     const [formData, setFormData] = useState({

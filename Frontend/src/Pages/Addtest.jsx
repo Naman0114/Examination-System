@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useWeb3context } from "../contexts/useWeb3Context";
 import { connectWallet } from "../utils/connectWallet";
 function Addtest() {
-  
-  const { updateWeb3State} = useWeb3context();
+
+  const { updateWeb3State } = useWeb3context();
   const url = process.env.REACT_APP_API_BASE_URL;
   const dispatch = useDispatch();
   const tests = useSelector((state) => state.cart.tests);
@@ -139,129 +139,129 @@ function Addtest() {
     const res = await axios.post(url + "/api/uploadFile");
     console.log(res.data);
 
-    const result = await axios.post(url + "/api/uploadPaper",{testData});
+    const result = await axios.post(url + "/api/uploadPaper", { testData });
     console.log(result.data.ipfsHash);
     console.log(testData.title);
 
-    await storeEncryptedIPFSHash(testData.title,result.data.ipfsHash);
+    await storeEncryptedIPFSHash(testData.title, result.data.ipfsHash);
 
-  
-  const storeEncryptedIPFSHash = async (title,encryptedHash) => {
 
-    const { contractInstance, selectedAccount } = await connectWallet();
-    updateWeb3State({ contractInstance, selectedAccount });
+    const storeEncryptedIPFSHash = async (title, encryptedHash) => {
 
-    const tx = await contractInstance.storePaper(title,encryptedHash);
+      const { contractInstance, selectedAccount } = await connectWallet();
+      updateWeb3State({ contractInstance, selectedAccount });
 
-    const receipt = await tx.wait();
-    console.log(receipt);
-  }
+      const tx = await contractInstance.storePaper(title, encryptedHash);
+
+      const receipt = await tx.wait();
+      console.log(receipt);
+    }
   };
 
 
-return (
-  <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }} className="addtestes">
-    {step === 1 && (
-      <div>
-        <h2>Add Test Details</h2>
-        <input
-          type="text"
-          value={testTitle}
-          onChange={handleTestTitleChange}
-          placeholder="Enter Title of Test"
-        />
-        <input
-          type="number"
-          min="1"
-          max="10"
-
-          value={totalQuestions || ''}
-          onChange={handleTotalQuestions}
-          onWheel={preventScroll} // Prevent scroll on number input
-          placeholder="Enter the number of Questions (1-10)"
-        />
-        <input
-          type="number"
-          value={paperId}
-          onChange={handlepaperID}
-          placeholder="Enter the Paper ID"
-        />
-        <select className="form-select mt-2" value={course} onChange={handleCourseChange}>
-          <option value="" disabled>
-            --- Course ---
-          </option>
-          <option value="BTECH">B-TECH</option>
-          <option value="BCA">B.CA</option>
-          <option value="MCA">M.CA</option>
-          <option value="MTECH">M-TECH</option>
-        </select>
-
-        <input
-          type="number"
-          value={timeLimit}
-          onChange={handleTimeLimitChange}
-          onWheel={preventScroll} // Prevent scroll on number input
-          placeholder="Enter Time Limit (minutes)"
-        />
-        <input
-          type="number"
-          value={totalMarks}
-          onChange={handleTotalMarksChange}
-          onWheel={preventScroll} // Prevent scroll on number input
-          placeholder="Enter Total Marks"
-        />
-        <button onClick={() => totalQuestions > 0 && setStep(2)}>Next</button>
-      </div>
-    )}
-
-    {step === 2 && (
-      <div>
-        <h2>Question {questions.length + 1}</h2>
+  return (
+    <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }} className="addtestes">
+      {step === 1 && (
         <div>
-          <label>Question:</label>
+          <h2>Add Test Details</h2>
           <input
             type="text"
-            value={currentQuestion.question}
-            onChange={handleQuestionChange}
-            placeholder="Enter your question"
+            value={testTitle}
+            onChange={handleTestTitleChange}
+            placeholder="Enter Title of Test"
           />
+          <input
+            type="number"
+            min="1"
+            max="10"
+
+            value={totalQuestions || ''}
+            onChange={handleTotalQuestions}
+            onWheel={preventScroll} // Prevent scroll on number input
+            placeholder="Enter the number of Questions (1-10)"
+          />
+          <input
+            type="number"
+            value={paperId}
+            onChange={handlepaperID}
+            placeholder="Enter the Paper ID"
+          />
+          <select className="form-select mt-2" value={course} onChange={handleCourseChange}>
+            <option value="" disabled>
+              --- Course ---
+            </option>
+            <option value="BTECH">B-TECH</option>
+            <option value="BCA">B.CA</option>
+            <option value="MCA">M.CA</option>
+            <option value="MTECH">M-TECH</option>
+          </select>
+
+          <input
+            type="number"
+            value={timeLimit}
+            onChange={handleTimeLimitChange}
+            onWheel={preventScroll} // Prevent scroll on number input
+            placeholder="Enter Time Limit (minutes)"
+          />
+          <input
+            type="number"
+            value={totalMarks}
+            onChange={handleTotalMarksChange}
+            onWheel={preventScroll} // Prevent scroll on number input
+            placeholder="Enter Total Marks"
+          />
+          <button onClick={() => totalQuestions > 0 && setStep(2)}>Next</button>
+        </div>
+      )}
+
+      {step === 2 && (
+        <div>
+          <h2>Question {questions.length + 1}</h2>
+          <div>
+            <label>Question:</label>
+            <input
+              type="text"
+              value={currentQuestion.question}
+              onChange={handleQuestionChange}
+              placeholder="Enter your question"
+            />
+            <hr />
+          </div>
+          <div>
+            {currentQuestion.options.map((option, index) => (
+              <div key={index}>
+                <label>Option {index + 1}:</label>
+                <input
+                  type="text"
+                  value={option}
+                  onChange={(e) => handleOptionChange(index, e.target.value)}
+                  placeholder={`Enter option ${index + 1}`}
+                />
+              </div>
+            ))}
+          </div>
           <hr />
+          <div>
+            <label>Correct Answer:</label>
+            <input
+              type="text"
+              value={currentQuestion.correctAnswer}
+              onChange={handleCorrectAnswerChange}
+              placeholder="Enter the correct answer"
+            />
+          </div>
+          <button onClick={handleNext}>Next</button>
         </div>
-        <div>
-          {currentQuestion.options.map((option, index) => (
-            <div key={index}>
-              <label>Option {index + 1}:</label>
-              <input
-                type="text"
-                value={option}
-                onChange={(e) => handleOptionChange(index, e.target.value)}
-                placeholder={`Enter option ${index + 1}`}
-              />
-            </div>
-          ))}
-        </div>
-        <hr />
-        <div>
-          <label>Correct Answer:</label>
-          <input
-            type="text"
-            value={currentQuestion.correctAnswer}
-            onChange={handleCorrectAnswerChange}
-            placeholder="Enter the correct answer"
-          />
-        </div>
-        <button onClick={handleNext}>Next</button>
-      </div>
-    )}
+      )}
 
-    {step === 3 && (
-      <div>
-        <h2>Review and Submit</h2>
-        <button onClick={handleSubmit}>Submit</button>
-      </div>
-    )}
-  </div>
-);
+      {step === 3 && (
+        <div>
+          <h2>Review and Submit</h2>
+          <button onClick={handleSubmit}>Submit</button>
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default Addtest;

@@ -1,8 +1,8 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import '../css/style2.css'; // Custom styles
-import '../javascript/ja';
+import '../css/style2.css';
+
 
 function User() {
   const [formData, setFormData] = useState({

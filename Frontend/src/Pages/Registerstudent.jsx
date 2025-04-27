@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
-import { addtempenrollmentnumber } from '../Redux/CartSlice';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import '../css/style.css'; // Make sure this contains your new styles
 
 function LoginStudent() {
@@ -99,7 +98,7 @@ function LoginStudent() {
         {error && <div className="error-message">{error}</div>}
 
         <p className="create-account text-end">
-           <Link to="/forgetpass">Forget Password</Link>
+          <Link to="/forgetpass">Forget Password</Link>
         </p>
 
         <p className="create-account text-end">
