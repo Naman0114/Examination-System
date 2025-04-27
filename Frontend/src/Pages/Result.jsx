@@ -82,23 +82,21 @@ function Result() {
 
       await storeEncryptedIPFSHash(result.data.ipfsHash);
 
-
-      const storeEncryptedIPFSHash = async (encryptedHash) => {
-
-        const { contractInstance, selectedAccount } = await connectWallet();
-        updateWeb3State({ contractInstance, selectedAccount });
-
-        const tx = await contractInstance.storeResultHash(encryptedHash);
-
-        const receipt = await tx.wait();
-        console.log(receipt);
-      }
-
       navigate('/userloginsucc')
     } catch (error) {
       console.error("Error submitting results:", error.response ? error.response.data : error.message);
     }
   };
+  const storeEncryptedIPFSHash = async (encryptedHash) => {
+
+    const { contractInstance, selectedAccount } = await connectWallet();
+    updateWeb3State({ contractInstance, selectedAccount });
+
+    const tx = await contractInstance.storeResultHash(encryptedHash);
+
+    const receipt = await tx.wait();
+    console.log(receipt);
+  }
 
   return (
     <Container>
