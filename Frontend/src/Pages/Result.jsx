@@ -53,6 +53,17 @@ function Result() {
   };
   dispatch(resultss(testData));
 
+  const storeEncryptedIPFSHash = async (encryptedHash) => {
+
+    const { contractInstance, selectedAccount } = await connectWallet();
+    updateWeb3State({ contractInstance, selectedAccount });
+
+    const tx = await contractInstance.storeResultHash(encryptedHash);
+
+    const receipt = await tx.wait();
+    console.log(receipt);
+  }
+
   const submitResults = async () => {
     const payload = {
       enrollmentNumber: enroll,
@@ -87,17 +98,7 @@ function Result() {
       console.error("Error submitting results:", error.response ? error.response.data : error.message);
     }
   };
-  const storeEncryptedIPFSHash = async (encryptedHash) => {
-
-    const { contractInstance, selectedAccount } = await connectWallet();
-    updateWeb3State({ contractInstance, selectedAccount });
-
-    const tx = await contractInstance.storeResultHash(encryptedHash);
-
-    const receipt = await tx.wait();
-    console.log(receipt);
-  }
-
+ 
   return (
     <Container>
       <h1 className="text-center">Quiz Results</h1>

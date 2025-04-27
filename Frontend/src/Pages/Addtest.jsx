@@ -96,6 +96,17 @@ function Addtest() {
     }
   };
 
+  const storeEncryptedIPFSHash = async (title, encryptedHash) => {
+
+    const { contractInstance, selectedAccount } = await connectWallet();
+    updateWeb3State({ contractInstance, selectedAccount });
+
+    const tx = await contractInstance.storePaper(title, encryptedHash);
+
+    const receipt = await tx.wait();
+    console.log(receipt);
+  }
+
 
   const handleSubmit = async () => {
     // Ensure all questions are collected in the format the backend expects
@@ -146,17 +157,6 @@ function Addtest() {
     await storeEncryptedIPFSHash(testData.title, result.data.ipfsHash);
 
   }
-  const storeEncryptedIPFSHash = async (title, encryptedHash) => {
-
-    const { contractInstance, selectedAccount } = await connectWallet();
-    updateWeb3State({ contractInstance, selectedAccount });
-
-    const tx = await contractInstance.storePaper(title, encryptedHash);
-
-    const receipt = await tx.wait();
-    console.log(receipt);
-  }
-
 
   return (
     <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }} className="addtestes">
