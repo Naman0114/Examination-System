@@ -2,7 +2,7 @@ const { uploadToPinata} = require('../services/pinataServices');
 
 exports.uploadPaper = async (req, res) => {
   
-    const { payload } = req.body;
+    const payload  = req.body;
 
     console.log(payload);
   

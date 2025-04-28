@@ -73,12 +73,8 @@ function Result() {
   const submitResults = async () => {
 
     try {
-      console.log(payload);
-
       await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/results`, payload);
       alert('Successfully Result Uploaded');
-      console.log(payload);
-
 
       // calling to metamask interaction
       const { contractInstance, selectedAccount } = await connectWallet();
