@@ -74,7 +74,7 @@ function Result() {
     try {
 
       await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/results`, payload);
-      alert('Succefullt Result Uploaded');
+      alert('Successfully Result Uploaded');
 
 
       // calling to metamask interaction
@@ -84,7 +84,7 @@ function Result() {
       const res = await axios.post(url + "/api/uploadFile");
       console.log(res.data);
 
-      const result = await axios.post(url + "/api/uploadPaper", { testData });
+      const result = await axios.post(url + "/api/uploadPaper", { payload });
       console.log(result.data.ipfsHash);
       console.log(testData.title);
 
