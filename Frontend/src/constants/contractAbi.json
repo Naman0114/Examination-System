@@ -35,9 +35,9 @@
 			},
 			{
 				"indexed": false,
-				"internalType": "bytes32",
+				"internalType": "string",
 				"name": "resultHash",
-				"type": "bytes32"
+				"type": "string"
 			}
 		],
 		"name": "ResultHashStored",
@@ -85,9 +85,9 @@
 		"name": "getAllResultHashes",
 		"outputs": [
 			{
-				"internalType": "bytes32[]",
+				"internalType": "string[]",
 				"name": "",
-				"type": "bytes32[]"
+				"type": "string[]"
 			}
 		],
 		"stateMutability": "view",
@@ -138,9 +138,9 @@
 	{
 		"inputs": [
 			{
-				"internalType": "bytes32",
+				"internalType": "string",
 				"name": "_resultHash",
-				"type": "bytes32"
+				"type": "string"
 			}
 		],
 		"name": "storeResultHash",

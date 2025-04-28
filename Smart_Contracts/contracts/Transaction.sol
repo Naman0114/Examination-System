@@ -21,10 +21,9 @@ contract HashStorage {
         require(bytes(_ipfsHash).length > 0, "IPFS hash cannot be empty");
 
         // Save in array
-        userPapers[msg.sender].push(Paper({
-            title: _title,
-            ipfsHash: _ipfsHash
-        }));
+        userPapers[msg.sender].push(
+            Paper({title: _title, ipfsHash: _ipfsHash})
+        );
 
         // Save for quick lookup
         titleToHash[msg.sender][_title] = _ipfsHash;
@@ -33,9 +32,15 @@ contract HashStorage {
     }
 
     // Retrieve the IPFS hash by paper title
-    function getIPFSHashByTitle(address user, string memory _title) public view returns (string memory) {
+    function getIPFSHashByTitle(
+        address user,
+        string memory _title
+    ) public view returns (string memory) {
         string memory hash = titleToHash[user][_title];
-        require(bytes(hash).length > 0, "No paper found with that title for this user");
+        require(
+            bytes(hash).length > 0,
+            "No paper found with that title for this user"
+        );
         return hash;
     }
 
@@ -44,23 +49,22 @@ contract HashStorage {
         return userPapers[user];
     }
 
+    // --- Result Hash Section ---
+    mapping(address => string[]) private userResultHashes;
 
-// --- Result Hash Section ---
-    mapping(address => bytes32[]) private userResultHashes;
+    event ResultHashStored(address indexed user, string resultHash);
 
-    event ResultHashStored(address indexed user, bytes32 resultHash);
-
-    // Store a result hash (not related to any paper)
-    function storeResultHash(bytes32 _resultHash) public {
-        require(_resultHash != bytes32(0), "Result hash cannot be empty");
+    function storeResultHash(string memory _resultHash) public {
+        require(bytes(_resultHash).length != 0, "Result hash cannot be empty");
 
         userResultHashes[msg.sender].push(_resultHash);
 
         emit ResultHashStored(msg.sender, _resultHash);
     }
 
-    // Get all result hashes
-    function getAllResultHashes(address user) public view returns (bytes32[] memory) {
+    function getAllResultHashes(
+        address user
+    ) public view returns (string[] memory) {
         return userResultHashes[user];
     }
 }
