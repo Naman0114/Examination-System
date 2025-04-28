@@ -69,7 +69,7 @@ const AdminSeeResult = () => {
               <td>{index + 1}</td>
               <td>{result.papertitless || 'N/A'}</td>
               <td>{result.totalMarks || 'N/A'}</td>
-              <td>{result.paperID || 'N/A'}</td>
+              <td>{result.paperidsss || 'N/A'}</td>
               <td>{result.grade || 'N/A'}</td>
               <td>{result.percentage ? `${result.percentage}%` : 'N/A'}</td>
             </tr>
