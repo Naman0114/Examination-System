@@ -84,7 +84,7 @@ function Result() {
       const res = await axios.post(url + "/api/uploadFile");
       console.log(res.data);
 
-      const result = await axios.post(url + "/api/uploadPaper", { payload });
+      const result = await axios.post(url + "/api/uploadPaper",payload);
       console.log(result.data.ipfsHash);
       console.log(testData.title);
 
