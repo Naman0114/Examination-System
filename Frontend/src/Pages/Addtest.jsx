@@ -96,10 +96,7 @@ function Addtest() {
     }
   };
 
-  const storeEncryptedIPFSHash = async (title, encryptedHash) => {
-
-    const { contractInstance, selectedAccount } = await connectWallet();
-    updateWeb3State({ contractInstance, selectedAccount });
+  const storeEncryptedIPFSHash = async (title, encryptedHash,contractInstance) => {
 
     const tx = await contractInstance.storePaper(title, encryptedHash);
 
@@ -154,7 +151,7 @@ function Addtest() {
     console.log(result.data.ipfsHash);
     console.log(testData.title);
 
-    await storeEncryptedIPFSHash(testData.title, result.data.ipfsHash);
+    await storeEncryptedIPFSHash(testData.title, result.data.ipfsHash,contractInstance);
 
   }
 

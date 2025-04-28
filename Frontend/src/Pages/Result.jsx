@@ -53,15 +53,12 @@ function Result() {
   };
   dispatch(resultss(testData));
 
-  const storeEncryptedIPFSHash = async (encryptedHash) => {
-
-    const { contractInstance, selectedAccount } = await connectWallet();
-    updateWeb3State({ contractInstance, selectedAccount });
+  const storeEncryptedIPFSHash = async (encryptedHash,contractInstance) => {
 
     const tx = await contractInstance.storeResultHash(encryptedHash);
-
+    console.log("Transaction sent. Hash:", tx.hash);
     const receipt = await tx.wait();
-    console.log(receipt);
+    console.log("Transaction mined. Receipt:", receipt);
   }
 
   const submitResults = async () => {
@@ -91,14 +88,14 @@ function Result() {
       console.log(result.data.ipfsHash);
       console.log(testData.title);
 
-      await storeEncryptedIPFSHash(result.data.ipfsHash);
+      await storeEncryptedIPFSHash(result.data.ipfsHash,contractInstance);
 
       navigate('/userloginsucc')
     } catch (error) {
       console.error("Error submitting results:", error.response ? error.response.data : error.message);
     }
   };
- 
+
   return (
     <Container>
       <h1 className="text-center">Quiz Results</h1>

@@ -107,12 +107,6 @@ function Home() {
         // ✅ Extract only paperidsss
         const allPaperIds = data.papers.map(item => item.paperidsss);
 
-        // ✅ Remove duplicates (if needed)
-        // const uniquePaperIds = [...new Set(allPaperIds)];
-        // setuniqpaperid(uniquePaperIds)
-
-        // ✅ Store or log them
-        // console.log('All Unique paperidsss:', uniquePaperIds);
 
       } catch (error) {
         console.error('Error fetching result details:', error);
