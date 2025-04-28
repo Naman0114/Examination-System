@@ -60,21 +60,24 @@ function Result() {
     const receipt = await tx.wait();
     console.log("Transaction mined. Receipt:", receipt);
   }
+  const payload = {
+    enrollmentNumber: enroll,
+    papertitless: paperTitle,
+    paperidsss: paperID,
+    totalMarks,
+    grade,
+    percentage,
+  };
+  
 
   const submitResults = async () => {
-    const payload = {
-      enrollmentNumber: enroll,
-      papertitless: paperTitle,
-      paperidsss: paperID,
-      totalMarks,
-      grade,
-      percentage,
-    };
 
     try {
+      console.log(payload);
 
       await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/results`, payload);
       alert('Successfully Result Uploaded');
+      console.log(payload);
 
 
       // calling to metamask interaction
@@ -83,7 +86,7 @@ function Result() {
 
       const res = await axios.post(url + "/api/uploadFile");
       console.log(res.data);
-
+      
       const result = await axios.post(url + "/api/uploadPaper",payload);
       console.log(result.data.ipfsHash);
       console.log(testData.title);

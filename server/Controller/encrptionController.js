@@ -2,11 +2,11 @@ const { uploadToPinata} = require('../services/pinataServices');
 
 exports.uploadPaper = async (req, res) => {
   
-    const { testData } = req.body;
+    const { payload } = req.body;
 
-    console.log(testData);
+    console.log(payload);
   
-    const ipfsHash = await uploadToPinata(testData);
+    const ipfsHash = await uploadToPinata(payload);
 
     console.log(ipfsHash);
 
