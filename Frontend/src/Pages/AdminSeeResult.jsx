@@ -1,21 +1,23 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useEnrollment } from '../contexts/enrollmentNumberContext';
 import { useWeb3context } from "../contexts/useWeb3Context";
 import '../css/AdminSeeResult.css';
 import { connectWallet } from "../utils/connectWallet";
 
 const AdminSeeResult = () => {
   const { updateWeb3State } = useWeb3context();
+  const { enrollmentNumber } = useEnrollment();
 
   const [ipfsPapers, setIpfsPapers] = useState([]);
   const [error, setError] = useState(null);
 
-  const getEncryptedIPFSHash = async () => {
+  const getEncryptedIPFSHash = async (enrollmentNumber) => {
     try {
       const { contractInstance, selectedAccount } = await connectWallet();
       updateWeb3State({ contractInstance, selectedAccount });
 
-      const encryptedHashes = await contractInstance.getAllResultHashes(selectedAccount);
+      const encryptedHashes = await contractInstance.getAllResultHashes(enrollmentNumber);
       console.log("Encrypted IPFS Hashes:", encryptedHashes);
 
       return encryptedHashes;
@@ -25,9 +27,9 @@ const AdminSeeResult = () => {
     }
   };
 
-  const fetchIPFSPapers = async () => {
+  const fetchIPFSPapers = async (enrollmentNumber) => {
     try {
-      const encryptedHashes = await getEncryptedIPFSHash();
+      const encryptedHashes = await getEncryptedIPFSHash(enrollmentNumber);
       const ipfsData = [];
 
       for (const ipfsHash of encryptedHashes) {
@@ -45,7 +47,7 @@ const AdminSeeResult = () => {
   };
 
   useEffect(() => {
-    fetchIPFSPapers();
+    fetchIPFSPapers(enrollmentNumber);
   }, []);
 
   return (

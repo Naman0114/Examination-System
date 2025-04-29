@@ -29,9 +29,9 @@
 		"inputs": [
 			{
 				"indexed": true,
-				"internalType": "address",
-				"name": "user",
-				"type": "address"
+				"internalType": "string",
+				"name": "enrollmentNumber",
+				"type": "string"
 			},
 			{
 				"indexed": false,
@@ -80,25 +80,6 @@
 				"internalType": "address",
 				"name": "user",
 				"type": "address"
-			}
-		],
-		"name": "getAllResultHashes",
-		"outputs": [
-			{
-				"internalType": "string[]",
-				"name": "",
-				"type": "string[]"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "user",
-				"type": "address"
 			},
 			{
 				"internalType": "string",
@@ -112,6 +93,25 @@
 				"internalType": "string",
 				"name": "",
 				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "enrollmentNumber",
+				"type": "string"
+			}
+		],
+		"name": "getResultHashes",
+		"outputs": [
+			{
+				"internalType": "string[]",
+				"name": "",
+				"type": "string[]"
 			}
 		],
 		"stateMutability": "view",
@@ -139,7 +139,12 @@
 		"inputs": [
 			{
 				"internalType": "string",
-				"name": "_resultHash",
+				"name": "enrollmentNumber",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "ipfsHash",
 				"type": "string"
 			}
 		],

@@ -20,50 +20,53 @@ import ResultPage from './Pages/ResultPage';
 import SignUp from './Pages/SignUp';
 import TRYCODE from './Pages/TRYCODE';
 import User from './Pages/User';
+import { EnrollmentProvider } from './contexts/enrollmentNumberContext';
 import Web3Provider from "./contexts/web3Provider";
 // import MyForm from './Pages/M';
-function App( props) {
+function App(props) {
   // console.log(name,'appsss');
   const [hidee, setShowee] = useState(false);
 
-  
+
   return (
     <Web3Provider>
-    <div className="App">
+      <EnrollmentProvider>
+      <div className="App">
         <BrowserRouter>
-            {/* <Row>
+          {/* <Row>
               <Col>
                   <Header/>
 
               </Col>
             </Row> */}
-            <Routes>
-              <Route path='/' element={<FrontPage/>}/>
-              <Route path='/Admin' element={<Admin/>}/>
-              <Route path='/Users' element={<User/>}/>
-              <Route path='/usersignup' element={<UserLogin/>}/>
-              <Route path='/userloginsucc' element={<Mainpage/>}/>
-              <Route path='/exam' element={<Mainpage/>}/>
-              <Route path='/Adminpage' element={<AdminPage/>}/>
-              <Route path='/q' element={<QuesBank/>}/>
-              <Route path='/giveexam' element={<Examrundash/>}/>
-              <Route path='/test' element={<Test/>}/>
-              <Route path='/Result' element={<Result/>}/>
-              <Route path='/Register' element={<Registerstudent/>}/>
-              <Route path='/otpss' element={<OTPverification/>}/>
-              <Route path='/user' element={<SignUp/>}/>
-              <Route path='/try' element={<TRYCODE/>}/>
-              <Route path="/allresult" element={<ResultPage />} />
-              <Route path="/alert" element={<CustomAlert />} />
-              <Route path="/StudentResult/:enrollmentNumber" element={<AdminSeeResult />} />
-              <Route path="/AdminSignup" element={<AdminSignup />} />
-              <Route path="/forgetpass" element={<ForgotPassword />} />
-            
-          
-            </Routes>
+          <Routes>
+            <Route path='/' element={<FrontPage />} />
+            <Route path='/Admin' element={<Admin />} />
+            <Route path='/Users' element={<User />} />
+            <Route path='/usersignup' element={<UserLogin />} />
+            <Route path='/userloginsucc' element={<Mainpage />} />
+            <Route path='/exam' element={<Mainpage />} />
+            <Route path='/Adminpage' element={<AdminPage />} />
+            <Route path='/q' element={<QuesBank />} />
+            <Route path='/giveexam' element={<Examrundash />} />
+            <Route path='/test' element={<Test />} />
+            <Route path='/Result' element={<Result />} />
+            <Route path='/Register' element={<Registerstudent />} />
+            <Route path='/otpss' element={<OTPverification />} />
+            <Route path='/user' element={<SignUp />} />
+            <Route path='/try' element={<TRYCODE />} />
+            <Route path="/allresult" element={<ResultPage />} />
+            <Route path="/alert" element={<CustomAlert />} />
+            <Route path="/StudentResult/:enrollmentNumber" element={<AdminSeeResult />} />
+            <Route path="/AdminSignup" element={<AdminSignup />} />
+            <Route path="/forgetpass" element={<ForgotPassword />} />
+
+
+          </Routes>
         </BrowserRouter>
-    </div>
-    </Web3Provider>
+      </div>
+    </EnrollmentProvider>
+    </Web3Provider >
 
   );
 }

@@ -49,22 +49,21 @@ contract HashStorage {
         return userPapers[user];
     }
 
-    // --- Result Hash Section ---
-    mapping(address => string[]) private userResultHashes;
+     mapping(string => string[]) private resultHashes;
 
-    event ResultHashStored(address indexed user, string resultHash);
+    event ResultHashStored(string indexed enrollmentNumber, string resultHash);
 
-    function storeResultHash(string memory _resultHash) public {
-        require(bytes(_resultHash).length != 0, "Result hash cannot be empty");
+    // Store result IPFS hash by enrollment number
+    function storeResultHash(string memory enrollmentNumber, string memory ipfsHash) public {
+        require(bytes(enrollmentNumber).length > 0, "Enrollment number required");
+        require(bytes(ipfsHash).length > 0, "IPFS hash required");
 
-        userResultHashes[msg.sender].push(_resultHash);
-
-        emit ResultHashStored(msg.sender, _resultHash);
+        resultHashes[enrollmentNumber].push(ipfsHash);
+        emit ResultHashStored(enrollmentNumber, ipfsHash);
     }
 
-    function getAllResultHashes(
-        address user
-    ) public view returns (string[] memory) {
-        return userResultHashes[user];
+    // Get all result hashes for a given enrollment number
+    function getResultHashes(string memory enrollmentNumber) public view returns (string[] memory) {
+        return resultHashes[enrollmentNumber];
     }
 }
