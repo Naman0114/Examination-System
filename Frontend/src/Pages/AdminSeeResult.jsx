@@ -8,6 +8,7 @@ import { connectWallet } from "../utils/connectWallet";
 const AdminSeeResult = () => {
   const { updateWeb3State } = useWeb3context();
   const { enrollmentNumber } = useEnrollment();
+  
 
   const [ipfsPapers, setIpfsPapers] = useState([]);
   const [error, setError] = useState(null);
@@ -47,9 +48,11 @@ const AdminSeeResult = () => {
   };
 
   useEffect(() => {
-    fetchIPFSPapers(enrollmentNumber);
-    console.log(enrollmentNumber);
-  }, []);
+    if (enrollmentNumber) {
+      fetchIPFSPapers(enrollmentNumber);
+    }
+  }, [enrollmentNumber]);
+  
 
   return (
     <div className="result-container">

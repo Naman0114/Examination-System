@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Row, Col, Table, Button } from 'react-bootstrap';
+import { Button, Col, Container, Row, Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useEnrollment } from '../contexts/enrollmentNumberContext';
+
 
 function ManageStudent() {
-  // State to store the students
+
   const [students, setStudents] = useState([]);
-  
+  const { setEnrollmentNumber } = useEnrollment();
+
+
+
 
   // API base URL from environment variable
   const url = process.env.REACT_APP_API_BASE_URL;
@@ -70,13 +75,15 @@ function ManageStudent() {
                       <td>{student.enrollmentNumber}</td>
                       <td>{student.NAME}</td>
                       <td>{student.COURSE}</td>
-                      <td><Link
-                to={`/StudentResult/${student.enrollmentNumber}`} // Passing the enrollment number
-                style={{ textDecoration: 'underline' }}
-              >
-                View
-              </Link></td>
-
+                      <td>
+                        <Link
+                          to={`/StudentResult/${student.enrollmentNumber}`}
+                          style={{ textDecoration: 'underline' }}
+                          onClick={() => setEnrollmentNumber(student.enrollmentNumber)}
+                        >
+                          View
+                        </Link>
+                      </td>
                       <td>
                         <Button variant="info" size="sm" className="me-2">
                           Send

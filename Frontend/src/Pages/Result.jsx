@@ -3,7 +3,6 @@ import { Button, Container, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { resultss } from "../Redux/CartSlice";
-import { useEnrollment } from "../contexts/enrollmentNumberContext";
 import { useWeb3context } from "../contexts/useWeb3Context";
 import { connectWallet } from "../utils/connectWallet";
 
@@ -12,7 +11,6 @@ import axios from "axios";
 function Result() {
   const url = process.env.REACT_APP_API_BASE_URL;
   const { updateWeb3State } = useWeb3context();
-  const { setEnrollmentNumber } = useEnrollment();
   const navigate = useNavigate();
   const location = useLocation();
   const { resultsData } = location.state || { resultsData: [] };
@@ -57,10 +55,14 @@ function Result() {
 
   const storeEncryptedIPFSHash = async (encryptedHash,contractInstance,enrollmentNumber) => {
 
-    const tx = await contractInstance.storeResultHash(enrollmentNumber,encryptedHash);
-    console.log("Transaction sent. Hash:", tx.hash);
-    const receipt = await tx.wait();
-    console.log("Transaction mined. Receipt:", receipt);
+    try {
+      const tx = await contractInstance.storeResultHash(enrollmentNumber, encryptedHash);
+      const receipt = await tx.wait();
+      console.log("Stored on-chain:", receipt);
+    } catch (err) {
+      console.error("Failed to store on-chain:", err);
+    }
+    
   }
   const payload = {
     enrollmentNumber: enroll,
@@ -90,8 +92,6 @@ function Result() {
       console.log(testData.title);
 
       await storeEncryptedIPFSHash(result.data.ipfsHash,contractInstance,payload.enrollmentNumber);
-      setEnrollmentNumber(payload.enrollmentNumber);
-      console.log(payload.enrollmentNumber);
       navigate('/userloginsucc')
     } catch (error) {
       console.error("Error submitting results:", error.response ? error.response.data : error.message);
