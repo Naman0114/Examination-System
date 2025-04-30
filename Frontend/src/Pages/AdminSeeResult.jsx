@@ -17,7 +17,7 @@ const AdminSeeResult = () => {
       const { contractInstance, selectedAccount } = await connectWallet();
       updateWeb3State({ contractInstance, selectedAccount });
 
-      const encryptedHashes = await contractInstance.getAllResultHashes(enrollmentNumber);
+      const encryptedHashes = await contractInstance.getResultHashes(enrollmentNumber);
       console.log("Encrypted IPFS Hashes:", encryptedHashes);
 
       return encryptedHashes;
