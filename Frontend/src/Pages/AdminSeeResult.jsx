@@ -48,6 +48,7 @@ const AdminSeeResult = () => {
 
   useEffect(() => {
     fetchIPFSPapers(enrollmentNumber);
+    console.log(enrollmentNumber);
   }, []);
 
   return (
