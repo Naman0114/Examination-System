@@ -18,7 +18,7 @@ const AdminSeeResult = () => {
       const { contractInstance, selectedAccount } = await connectWallet();
       updateWeb3State({ contractInstance, selectedAccount });
 
-      const encryptedHashes = await contractInstance.getResultHashes(enrollmentNumber);
+      const encryptedHashes = await contractInstance.getResultHashes(String(enrollmentNumber));
       console.log("Encrypted IPFS Hashes:", encryptedHashes);
 
       return encryptedHashes;
@@ -49,7 +49,7 @@ const AdminSeeResult = () => {
 
   useEffect(() => {
     if (enrollmentNumber) {
-      fetchIPFSPapers(enrollmentNumber);
+      fetchIPFSPapers(String(enrollmentNumber));
     }
   }, [enrollmentNumber]);
   
