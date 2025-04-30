@@ -56,7 +56,7 @@ function Result() {
   const storeEncryptedIPFSHash = async (encryptedHash,contractInstance,enrollmentNumber) => {
 
     try {
-      const tx = await contractInstance.storeResultHash(enrollmentNumber, encryptedHash);
+      const tx = await contractInstance.storeResultHash(String(enrollmentNumber), encryptedHash);
       const receipt = await tx.wait();
       console.log("Stored on-chain:", receipt);
     } catch (err) {
@@ -91,7 +91,7 @@ function Result() {
       console.log(result.data.ipfsHash);
       console.log(testData.title);
 
-      await storeEncryptedIPFSHash(result.data.ipfsHash,contractInstance,payload.enrollmentNumber);
+      await storeEncryptedIPFSHash(result.data.ipfsHash,contractInstance,String(payload.enrollmentNumber));
       navigate('/userloginsucc')
     } catch (error) {
       console.error("Error submitting results:", error.response ? error.response.data : error.message);

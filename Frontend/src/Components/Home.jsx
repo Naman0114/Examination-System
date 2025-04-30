@@ -37,15 +37,17 @@ function Home() {
     try {
       const url2 = `https://gateway.pinata.cloud/ipfs/${decrptedIPFSHash}`;
       const response = await axios.get(url2);
-      console.log(response.data);
-      const paper = response.data;
-      addCards(paper.paperID, paper.timelimit, paper.Totalmarks, paper.title)
+      console.log("data value:", response.data.testData);
+      const { paperID, timelimit, Totalmarks, title } = response.data.testData;
+      addCards(paperID, timelimit, Totalmarks, title);
+      console.log(paperID, timelimit, Totalmarks, title);
+
     } catch (error) {
       console.log(error);
       throw new Error('Failed to fetch from Pinata');
     }
   }
-  
+
 
   const getEncryptedIPFSHash = async (title) => {
     try {
