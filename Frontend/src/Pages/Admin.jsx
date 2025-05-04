@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import '../css/style2.css';
 import axios from 'axios';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import '../css/style3.css';
 
 function Admin() {
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ function Admin() {
 
       if (response.data.success) {
         const admin = response.data.user;
-        console.log('✅ Admin logged in:', admin);
+        console.log('Admin logged in:', admin);
 
         navigate('/Adminpage', { state: { admin } });
       } else {
@@ -46,8 +46,8 @@ function Admin() {
   };
 
   return (
-    <div className="admin-login-bg"> {/* ✅ Background wrapper */}
-      <div className="login-container transparent-box"> {/* ✅ Transparent box */}
+    <div className="admin-login-bg">
+      <div className="login-container transparent-box">
         <h2>Admin Login</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">

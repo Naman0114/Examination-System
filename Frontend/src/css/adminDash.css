@@ -1,0 +1,102 @@
+/* adminDash.css */
+
+body {
+    background-color: #f9fafb;
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.dark {
+    background-color: #ffffff;
+    color: #333;
+    padding: 4px;
+    /* Reduced */
+}
+
+.welcome-text {
+    padding: 4px 8px;
+    margin-bottom: 4px;
+}
+
+.stats-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 6px;
+    padding: 4px 8px;
+}
+
+.total_s {
+    flex: 1 1 30%;
+    background-color: #eef2f7;
+    border-radius: 5px;
+    padding: 6px;
+    text-align: center;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    min-width: 140px;
+}
+
+.total_s h6 {
+    font-size: 15px;
+    margin-bottom: 2px;
+}
+
+.total_s p {
+    font-size: 12px;
+    margin: 0;
+}
+
+.table-container {
+    padding: 8px;
+    margin-top: 8px;
+}
+
+.tested {
+    background-color: #f2f4f8;
+    padding: 10px;
+    border-radius: 6px;
+    margin-top: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.tested h6 {
+    margin-bottom: 3px;
+    font-size: 16px;
+}
+
+.table thead {
+    background-color: #dce3ea;
+    color: #212529;
+    font-size: 14px;
+}
+
+.table tbody tr:hover {
+    background-color: #f7f9fc;
+}
+
+.btn-danger.btn-sm {
+    padding: 3px 6px;
+    font-size: 12px;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+    .stats-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .total_s {
+        flex: 1 1 100%;
+        margin-bottom: 6px;
+    }
+
+    .table-container {
+        padding: 6px;
+    }
+
+    .tested {
+        padding: 8px;
+    }
+}

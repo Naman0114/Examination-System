@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Container, Row, Table } from 'react-bootstrap';
+import { Col, Container, Row, Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useEnrollment } from '../contexts/enrollmentNumberContext';
 
-
+import '../css/manageStudent.css';
 function ManageStudent() {
 
   const [students, setStudents] = useState([]);
@@ -43,7 +43,7 @@ function ManageStudent() {
       <Container>
         <Row className="mb-4">
           <Col>
-            <h1 className="text-center text-primary">Manage Students</h1>
+            <h1 className="text-center text-blue">Manage Students</h1>
           </Col>
         </Row>
 
@@ -57,7 +57,6 @@ function ManageStudent() {
                   <th>Name</th>
                   <th>Course</th>
                   <th>Result</th>
-                  <th>Send Response</th>
                 </tr>
               </thead>
               <tbody>
@@ -83,11 +82,6 @@ function ManageStudent() {
                         >
                           View
                         </Link>
-                      </td>
-                      <td>
-                        <Button variant="info" size="sm" className="me-2">
-                          Send
-                        </Button>
                       </td>
                     </tr>
                   ))

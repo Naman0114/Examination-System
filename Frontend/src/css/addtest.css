@@ -1,0 +1,66 @@
+.addtestes {
+    max-width: 700px;
+    margin: 2rem auto;
+    background-color: #f4f4f8; /* soft light background */
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 0 15px rgba(30, 30, 47, 0.15);
+    color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .addtestes h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #1e1e2f;
+  }
+  
+  .addtestes input,
+  .addtestes select {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    color: #333;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+  }
+  
+  .addtestes input:focus,
+  .addtestes select:focus {
+    border-color: #5a8dee;
+    outline: none;
+  }
+  
+  .addtestes label {
+    margin-top: 10px;
+    display: block;
+    font-weight: 600;
+    color: #444;
+  }
+  
+  .addtestes button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 12px;
+    background-color: #5a8dee;
+    color: #ffffff;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .addtestes button:hover {
+    background-color: #467bce;
+  }
+  
+  hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 20px 0;
+  }
+  

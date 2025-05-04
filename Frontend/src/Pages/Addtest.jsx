@@ -2,7 +2,9 @@ import axios from "axios";
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useWeb3context } from "../contexts/useWeb3Context";
+import '../css/addtest.css';
 import { connectWallet } from "../utils/connectWallet";
+
 function Addtest() {
 
   const { updateWeb3State } = useWeb3context();

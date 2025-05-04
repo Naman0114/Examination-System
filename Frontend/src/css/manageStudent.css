@@ -1,0 +1,138 @@
+/* Full page layout for ManageStudent */
+
+/* General Layout */
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Background styling */
+  .bg-light {
+    background-color: #f8f9fa !important;
+    min-height: 100%;
+  }
+  
+  /* Full-height container */
+  .container {
+    max-width: 1200px;
+    padding: 0 15px;
+  }
+  
+  /* Spacing for sections */
+  .py-5 {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+  
+  .text-center {
+    text-align: center !important;
+  }
+  
+  .text-white {
+    color: #fff !important;
+  }
+  
+  /* Page title styling */
+  h1 {
+    font-size: 3rem;
+    font-weight: 600;
+    color: #343a40;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Main content section */
+  .main-content {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  /* Table styling */
+  .table {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 2rem;
+    width: 100%;
+  }
+  
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f1f1f1;
+  }
+  
+  .table-bordered {
+    border: 1px solid #dee2e6;
+  }
+  
+  .table-dark {
+    background-color: #343a40;
+    color: white;
+  }
+  
+  th,
+  td {
+    text-align: center;
+    padding: 1rem;
+  }
+  
+  /* Hover effect for table rows */
+  .table-hover tbody tr:hover {
+    background-color: #f8f9fa;
+    cursor: pointer;
+  }
+  
+  /* Custom table row styles for Passed/Failed students */
+  .bg-success {
+    background-color: #28a745 !important;
+  }
+  
+  .bg-danger {
+    background-color: #dc3545 !important;
+  }
+  
+  /* Styling for "View" link */
+  a {
+    color: #007bff;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+  }
+  
+  /* Empty state message */
+  td[colspan="6"] {
+    text-align: center;
+    font-style: italic;
+    color: #6c757d;
+  }
+  
+  /* Mobile responsive adjustments */
+  @media (max-width: 768px) {
+    .table thead {
+      display: none;
+    }
+    .table, .table tbody, .table tr, .table td {
+      display: block;
+      width: 100%;
+    }
+  
+    .table td {
+      text-align: left;
+      padding-left: 1rem;
+    }
+  
+    .table td:before {
+      content: attr(data-label);
+      font-weight: bold;
+      display: inline-block;
+      width: 40%;
+      margin-right: 10px;
+    }
+  }
+  
