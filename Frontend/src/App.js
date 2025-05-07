@@ -3,8 +3,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './App.css';
 import Examrundash from './Components/Examrundash';
 import OTPverification from './Components/OTPverification';
-import QuesBank from './Components/QuesBank';
-import Test from './Components/Test';
 import UserLogin from './Components/UserLogin';
 import Admin from './Pages/Admin';
 import AdminPage from './Pages/AdminPage';
@@ -47,9 +45,7 @@ function App(props) {
             <Route path='/userloginsucc' element={<Mainpage />} />
             <Route path='/exam' element={<Mainpage />} />
             <Route path='/Adminpage' element={<AdminPage />} />
-            <Route path='/q' element={<QuesBank />} />
             <Route path='/giveexam' element={<Examrundash />} />
-            <Route path='/test' element={<Test />} />
             <Route path='/Result' element={<Result />} />
             <Route path='/Register' element={<Registerstudent />} />
             <Route path='/otpss' element={<OTPverification />} />
@@ -60,8 +56,6 @@ function App(props) {
             <Route path="/StudentResult/:enrollmentNumber" element={<AdminSeeResult />} />
             <Route path="/AdminSignup" element={<AdminSignup />} />
             <Route path="/forgetpass" element={<ForgotPassword />} />
-
-
           </Routes>
         </BrowserRouter>
       </div>

@@ -1,12 +1,12 @@
+import axios from "axios";
 import React from "react";
 import { Button, Container, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { resultss } from "../Redux/CartSlice";
 import { useWeb3context } from "../contexts/useWeb3Context";
+import '../css/result.css';
 import { connectWallet } from "../utils/connectWallet";
-
-import axios from "axios";
 
 function Result() {
   const url = process.env.REACT_APP_API_BASE_URL;
@@ -15,7 +15,7 @@ function Result() {
   const location = useLocation();
   const { resultsData } = location.state || { resultsData: [] };
   const tests = useSelector((state) => state.cart.enrollmentnum);
-  const enroll = tests[0].enrollmentNumber;
+  const enroll = (tests?.[0]?.enrollmentNumber) || '';
   console.log(enroll);
 
 
@@ -100,7 +100,7 @@ function Result() {
 
   return (
     <Container>
-      <h1 className="text-center">Quiz Results</h1>
+      <h1 className="text-center">Quiz Result</h1>
       <Table bordered className="mb-4">
         <tbody>
           <tr>
@@ -138,7 +138,7 @@ function Result() {
         </tbody>
       </Table>
 
-      <h2 className="text-center mt-4">Detailed Results</h2>
+      <h2 className="text-center mt-4">Result Detail</h2>
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -168,7 +168,7 @@ function Result() {
         </tbody>
       </Table>
 
-      <Button variant="primary" onClick={submitResults}>Submit Results</Button>
+      <Button variant="primary" onClick={submitResults}>Submit Result</Button>
     </Container>
   );
 }

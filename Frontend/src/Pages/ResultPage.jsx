@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { Card, Col, Container, Row, Table } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import { Table, Container, Row, Col, Card } from 'react-bootstrap';
 
 const ResultPage = () => {
   const [studentData, setStudentData] = useState([]);
@@ -9,20 +9,20 @@ const ResultPage = () => {
   const [error, setError] = useState(null);
   const [results, setResults] = useState([]);
   const [filteredResults, setFilteredResults] = useState([]);
-  // Try to get from Redux, fallback to localStorage
+
   const tests = useSelector((state) => state.cart.enrollmentnum || []);
   console.log(tests);
 
-  
+
 
   const url = process.env.REACT_APP_API_BASE_URL;
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         const response = await axios.get(`${url}/api/loginedusercurrent`);
-        console.log("Fetched Response Data:", response.data); // Log the full response
+        console.log("Fetched Response Data:", response.data);
         if (response.data.users) {
-          setUsers(response.data.users); // Save the fetched users in state
+          setUsers(response.data.users);
         } else {
           setError('No users found in the response');
         }
@@ -31,9 +31,9 @@ const ResultPage = () => {
         console.error('Error fetching users:', err);
       }
     };
-  
+
     fetchUsers();
-  }, [url]); // Fetch when the URL changes
+  }, [url]);
 
   useEffect(() => {
     const fetchAllResults = async () => {
@@ -49,19 +49,14 @@ const ResultPage = () => {
 
     fetchAllResults();
   }, [url]);
- console.log(results);
- useEffect(() => {
-  if (results.length > 0 && users[0]?.enrollmentNumber) {
-    const filtered = results.filter(result => result.enrollmentNumber === users[0]?.enrollmentNumber);
-    setFilteredResults(filtered);
-    console.log("Filtered Results:", filtered);
-  }
-}, [results, users]);
- 
-
-  
-  
-
+  console.log(results);
+  useEffect(() => {
+    if (results.length > 0 && users[0]?.enrollmentNumber) {
+      const filtered = results.filter(result => result.enrollmentNumber === users[0]?.enrollmentNumber);
+      setFilteredResults(filtered);
+      console.log("Filtered Results:", filtered);
+    }
+  }, [results, users]);
   return (
     <div className="result-page">
       <Container>
@@ -76,7 +71,6 @@ const ResultPage = () => {
                       <tr>
                         <th>Enrollment Number</th>
                         <th>Paper Title</th>
-                        <th>Marks</th>
                         <th>Paper ID</th>
                         <th>Total Marks</th>
                         <th>Grade</th>
@@ -88,14 +82,14 @@ const ResultPage = () => {
                         <tr key={index}>
                           <td>{student.enrollmentNumber}</td>
                           <td>{student.papertitless}</td>
-                          <td>
+                          {/* <td>
                             <ul style={{ paddingLeft: '1rem' }}>
                               {student.marks &&
                                 Object.entries(student.marks).map(([subject, mark], i) => (
                                   <li key={i}>{subject}: {mark}</li>
                                 ))}
                             </ul>
-                          </td>
+                          </td> */}
                           <td>{student.paperidsss}</td>
                           <td>{student.totalMarks}</td>
                           <td>{student.grade}</td>

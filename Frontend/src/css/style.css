@@ -1,36 +1,33 @@
-/* ===== Full Page Layout ===== */
 .full-page {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-/* ===== Navbar Heading ===== */
 .navbarheading {
-  /* background-color: #343a40;  */
-  background-color: #007bff;
-  padding: 1.2rem;
+  background-color: white;
+  padding: 1rem;
   text-align: center;
-  color: white;
+  color: #343a40;
   font-size: 1rem;
-  font-weight:lighter;
+  font-weight: bold;
 }
 
-/* ===== Hero Section ===== */
 .bg-primary {
-  background-color: #007bff;
-  padding: 1.5rem;
+  background-color: white;
+  padding: 0.1rem;
   text-align: center;
-  color: white;
+  color: #343a40;
+  font-weight: bold;
+  margin-top: 2px;
 }
 
-/* ===== Image Section ===== */
 .image-section {
   position: relative;
   background-image: url('../images/Frontpage.avif');
   background-size: cover;
   background-position: center;
-  height: 68vh;
+  height: 60vh;
 }
 
 .overlay {
@@ -39,20 +36,20 @@
   left: 0;
   width: 30%;
   height: 55%;
-  background-color:rgba(255, 255, 255, 0.89);
+  background-color: rgba(255, 255, 255, 0.89);
   display: flex;
   justify-content: center;
   align-items: center;
-  margin:3rem 26rem;
-  padding:1rem 2rem;
+  margin: 3rem 26rem;
+  padding: 1rem 2rem;
 }
 
-/* ===== Buttons ===== */
 .button-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 3rem;
+  scrollbar-width: none;
 }
 
 .custom-btn {
@@ -60,7 +57,7 @@
   height: 40px;
   background-color: #007bff;
   border: none;
-  margin:0.6rem;
+  margin: 0.6rem;
   padding: 0.2rem 0.2rem;
   text-decoration: none;
   font-size: 1.4rem;
@@ -75,7 +72,6 @@
   transform: scale(1.05);
 }
 
-/* ===== Responsive Design ===== */
 @media (max-width: 768px) {
   .custom-btn {
     width: 150px;

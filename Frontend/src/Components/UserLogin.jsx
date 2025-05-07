@@ -3,14 +3,13 @@ import { Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 function UserLogin() {
-  return (
-    <div>
-        <div className='formsigin1 mt-5' >
-                    <br />
-                    <br />
-                    <h1 className='h11'>Register User</h1>
-                    <div className='w-50 formm'>
-
+    return (
+        <div>
+            <div className='formsigin1 mt-5' >
+                <br />
+                <br />
+                <h1 className='h11'>Register User</h1>
+                <div className='w-50 formm'>
                     <form className='p-5 ' autocomplete="off" >
                         <input
                             type="text"
@@ -29,8 +28,7 @@ function UserLogin() {
                             // value={email}
                             // onChange={(e) => setEmail(e.target.value)}
                             className='w-100'
-                            // ref={LastName}
-                            
+                            // ref={LastName}                            
                             required
                         />
                         <br />
@@ -42,7 +40,6 @@ function UserLogin() {
                             // onChange={(e) => setEmail(e.target.value)}
                             className='w-100'
                             // ref={Emailid}
-
                             required
                         />
                         <br />
@@ -54,7 +51,7 @@ function UserLogin() {
                             // onChange={(e) => setPassword(e.target.value)
                             required
                             className='w-100'
-                            // ref={PassWord}
+                        // ref={PassWord}
                         />
                         <br />
                         <br />
@@ -65,21 +62,16 @@ function UserLogin() {
                             // onChange={(e) => setPassword(e.target.value)
                             required
                             className='w-100'
-                            // ref={PassWord}
+                        // ref={PassWord}
                         />
                         <br />
                         <br />
                         <Button className='w-50'><Link to='/userloginsucc'><h4>Signup</h4></Link></Button>
-                        
-
-                        
                     </form>
-                    </div>
-
-                    
+                </div>
             </div>
-    </div>
-  )
+        </div>
+    )
 }
 
 export default UserLogin
